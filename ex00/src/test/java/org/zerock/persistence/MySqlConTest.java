@@ -8,8 +8,8 @@ import java.sql.DriverManager;
 
 @Log4j
 public class MySqlConTest {
-    private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost:3306/springstudy?serverTimezone=UTC";
+    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
+    private static final String URL = "jdbc:mysql://localhost:3306/springstudy?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC";
     private static final String USER = "root"; //DB 사용자명
     private static final String PW = "1234";   //DB 사용자 비밀번호
 

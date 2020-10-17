@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.TransactionIsolationLevel;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.HierarchicalMessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,16 +19,17 @@ import java.sql.Connection;
 //@ComponentScan(basePackages = {"org.zerock.sample"}) -> Java를 이용한 의존성 주입
 @Configuration
 @ComponentScan(basePackages = {"org.zerock.sample"})
+@MapperScan(basePackages = {"org.zerock.mapper"})
 public class RootConfig {
 
     //HikariConfig
     @Bean
     public DataSource dataSource(){
         HikariConfig hikariConfig = new HikariConfig();
-        hikariConfig.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-        hikariConfig.setJdbcUrl("jdbc:oracle:thin:@localhost:1521:XE");
-        hikariConfig.setUsername("book_ex");
-        hikariConfig.setPassword("book_ex");
+        hikariConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        hikariConfig.setJdbcUrl("jdbc:mysql://localhost:3306/springstudy?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC");
+        hikariConfig.setUsername("root");
+        hikariConfig.setPassword("1234");
 
         HikariDataSource dataSource = new HikariDataSource(hikariConfig);
 
@@ -42,6 +44,7 @@ public class RootConfig {
         sqlSessionFactory.setDataSource(dataSource());
         return (SqlSessionFactory) sqlSessionFactory.getObject();
     }
+
 
 
 }
