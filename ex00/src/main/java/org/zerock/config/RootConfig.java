@@ -26,8 +26,10 @@ public class RootConfig {
     @Bean
     public DataSource dataSource(){
         HikariConfig hikariConfig = new HikariConfig();
-        hikariConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        hikariConfig.setJdbcUrl("jdbc:mysql://localhost:3306/springstudy?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC");
+        //hikariConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        //hikariConfig.setJdbcUrl("jdbc:mysql://localhost:3306/springstudy?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC");
+        hikariConfig.setDriverClassName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
+        hikariConfig.setJdbcUrl("jdbc:log4jdbc:mysql://localhost:3306/springstudy?serverTimezone=Asia/Seoul");
         hikariConfig.setUsername("root");
         hikariConfig.setPassword("1234");
 

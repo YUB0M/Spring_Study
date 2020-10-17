@@ -74,8 +74,24 @@
     <category name="log4j.logger.org.hibernate.jdbc">
         <priority value="ERROR" />
     </category>
+
+    <!-- Root Logger -->
+    <!-- 테스트 코드가 진행될 때 보여지는 메시지 로그 조절 -->
     <root>
         <priority value="info" />
         <appender-ref ref="console" />
     </root>
+
+    <logger name="jdbc.audit">
+        <level value="warn" />
+    </logger>
+
+    <logger name="jdbc.resultset">
+        <level value="warn" />
+    </logger>
+
+    <logger name="jdbc.connection">
+        <level value="warn" />
+    </logger>
+
 </log4j:configuration>
