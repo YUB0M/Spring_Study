@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="ex01">
+    <output-path>$PROJECT_DIR$/out/artifacts/ex01</output-path>
+    <root id="root">
+      <element id="archive" name="ex01.jar">
+        <element id="module-output" name="ex01" />
+      </element>
+    </root>
+  </artifact>
+</component>
