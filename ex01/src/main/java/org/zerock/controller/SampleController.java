@@ -1,18 +1,24 @@
 package org.zerock.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import lombok.extern.log4j.Log4j;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.zerock.domain.SampleDTO;
 import org.zerock.domain.SampleDTOList;
 import org.zerock.domain.TodoDTO;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 //servlet-context.xml과 같은 역할을 함
 //지정된 패키지를 조사(스캔)하도록 설정되어 있으며 해당 패키지에 선언된 클래스들을
@@ -22,12 +28,12 @@ import java.util.Arrays;
 @Log4j
 public class SampleController {
 
-    @InitBinder
-    public void initBinder(WebDataBinder binder){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        binder.registerCustomEditor(java.util.Date.class, new
-    CustomDateEditor(dateFormat, false));
-    }
+//    @InitBinder
+//    public void initBinder(WebDataBinder binder){
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        binder.registerCustomEditor(java.util.Date.class, new
+//                CustomDateEditor(dateFormat, false));
+//    }
 
 
     // RequestMapping을 줄여서 사용할 수 있는 @GetMapping과 @PostMapping
@@ -65,7 +71,7 @@ public class SampleController {
     }
 
     @RequestMapping("/ex02List")
-    public String ex02List(@RequestParam("ids")ArrayList<String> ids) {
+    public String ex02List(@RequestParam("ids") ArrayList<String> ids) {
         log.info("ids: " + ids);
         //http://localhost:8080/STS/ex02List?ids=111&ids=222&ids=333
         //134044 [http-nio-8080-exec-6] INFO  org.zerock.controller.SampleController  - ids: [111, 222, 333]
@@ -96,21 +102,13 @@ public class SampleController {
     @GetMapping("/ex03")
     public String ex03(TodoDTO todo){
         log.info("todo: " + todo);
-
-        //http://localhost:8080/STS/ex03?title=test&dueDate=2020/01/01
+        //http://localhost:8080/STS/ex03?title=test&dueDate=2020-01-01
+        //todo: TodoDTO(title=test, dueDate=Mon Jan 01 00:00:00 KST 2018)
+        //http://localhost:8080/STS/ex03?title=test&dueDate=2018/01/01
+        //todo: TodoDTO(title=test, dueDate=Mon Jan 01 00:00:00 KST 2018)
     return "ex03";
     }
 
-//    @GetMapping("/ex04")
-//    public String ex04(SampleDTO dto, int page){
-//        log.info("dto: " + dto);
-//        log.info("page:" + page);
-//        //http://localhost:8080/STS/ex04?name=aaa&age=11&page=9
-//        //SAMPLEDTO SampleDTO(name=aaa, age=11)
-//        //PAGE
-//        //int 타입으로 전달된 page는 화면(브라우저)에 전달되지 않은 것을 확인할 수 있음
-//    return "/STS/ex04";
-//    }
 
     @GetMapping("/ex04")
     public String ex04(SampleDTO dto, @ModelAttribute("page") int page){
@@ -120,6 +118,66 @@ public class SampleController {
         //SAMPLEDTO SampleDTO(name=aaa, age=11)
         //PAGE 9
         return "/STS/ex04";
+    }
+
+    @GetMapping("/ex05")
+    public void ex05() {
+        log.info("/ex05..........");
+    }
+
+    @GetMapping("/ex06")
+    public @ResponseBody SampleDTO ex06() {
+        log.info("/ex06..............");
+        SampleDTO dto = new SampleDTO();
+        dto.setAge(27);
+        dto.setName("봄봄");
+
+        //http://localhost:8080/STS/ex06
+        //{"name":"봄봄","age":27}
+        //[SampleDTO(name=봄봄, age=27)]
+        return dto;
+    }
+
+    @GetMapping("/ex07")
+    public ResponseEntity<String> ex07() {
+        log.info("/ex07.............");
+
+        String msg = "{\"name\": \"봄봄\"}";
+
+        HttpHeaders header = new HttpHeaders();
+        header.add("Content-Type", "application/json;charset=UTF-8");
+
+        return new ResponseEntity<>(msg, header, HttpStatus.OK);
+        //http://localhost:8080/STS/ex07
+        //{"name": "봄봄"}
+    }
+
+
+    @GetMapping("/exUpload")
+    public void exUpload() {
+        log.info("/exUpload..........");
+    }
+
+    @PostMapping("/exUploadPost")
+    public void exUploadPost(ArrayList<MultipartFile> files) {
+
+        files.forEach(file -> {
+            log.info("----------------------------------");
+            log.info("name:" + file.getOriginalFilename());
+            log.info("size:" + file.getSize());
+            //INFO : org.zerock.controller.SampleController - /exUpload..........
+            //INFO : org.zerock.controller.SampleController - ----------------------------------
+            //INFO : org.zerock.controller.SampleController - name:3021.txt
+            //INFO : org.zerock.controller.SampleController - size:0
+
+            //HTTP Status 404 – Not Found
+            //Type Status Report
+            //
+            //Message /WEB-INF/views/STS/exUploadPost.jsp
+
+            // MultipartFile의 배열 타입으로 작성
+
+        });
     }
 
 }
