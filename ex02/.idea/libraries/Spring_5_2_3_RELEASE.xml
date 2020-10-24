@@ -1,6 +1,9 @@
 <component name="libraryTable">
   <library name="Spring-5.2.3.RELEASE" type="spring">
     <properties version="5.2.3.RELEASE" />
+    <ANNOTATIONS>
+      <root url="file:///usr/local/apache-tomcat-8.0.53/Tomcat/apache-tomcat-8.0.53" />
+    </ANNOTATIONS>
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/spring-instrument-5.2.3.RELEASE.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/spring-aspects-5.2.3.RELEASE.jar!/" />
@@ -21,6 +24,9 @@
       <root url="jar://$PROJECT_DIR$/lib/spring-test-5.2.3.RELEASE.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ideaLibSources/spring-beans-5.2.3.RELEASE-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.ideaLibSources/spring-test-5.2.3.RELEASE-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>
