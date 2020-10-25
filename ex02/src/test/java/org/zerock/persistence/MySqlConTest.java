@@ -9,7 +9,7 @@ import java.sql.DriverManager;
 @Log4j
 public class MySqlConTest {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost/springstudy?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC";
+    private static final String URL = "jdbc:log4jdbc:mysql://localhost/springstudy?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC";
     private static final String USER = "root";
     private static final String PW = "1234";
 
