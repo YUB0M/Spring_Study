@@ -11,14 +11,13 @@ import java.util.List;
 
 @Log4j
 @Service
-public class BoardServiceImpl implements BoardService {
+class BoardServiceImpl implements BoardService {
 
     @Setter(onMethod_ = @Autowired)
     private BoardMapper mapper;
 
     @Override
     public void register(BoardVO board) {
-
         log.info("register....." + board);
         mapper.insertSelectKey(board);
 
@@ -30,6 +29,7 @@ public class BoardServiceImpl implements BoardService {
         log.info("getList.........");
         return mapper.getList();
     }
+
 
     @Override
     public BoardVO get(long bno) {
