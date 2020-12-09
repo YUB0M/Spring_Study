@@ -110,6 +110,17 @@ public class SampleController {
     }
 
 
+//    @GetMapping("/ex04")
+//    public String ex04(SampleDTO dto, int page){
+//        log.info("dto: " + dto);
+//        log.info("page:" + page);
+//        //http://localhost:8080/STS/ex04?name=aaa&age=11&page=9
+//        //SAMPLEDTO SampleDTO(name=aaa, age=11)
+//        //PAGE
+//        //int 타입으로 전달된 page는 화면(브라우저)에 전달되지 않은 것을 확인할 수 있음
+//    return "/STS/ex04";
+//    }
+
     @GetMapping("/ex04")
     public String ex04(SampleDTO dto, @ModelAttribute("page") int page){
         log.info("dto: " + dto);

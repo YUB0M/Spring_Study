@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.BoardMapper">
+
+    <!--getList -->
+<!--    <select id="getList" resultType="org.zerock.domain.BoardVO">-->
+<!--        <![CDATA[-->
+<!--            select * from tbl_board where bno > 0-->
+<!--        ]]>-->
+<!--    </select>-->
+
+
+    <!-- insert -->
+    <insert id="insert">
+		insert into tbl_board(title, content, writer)
+		values(#{title}, #{content}, #{writer})
+	</insert>
+    <!-- INFO  [BoardMapperTests:35] - BoardVO(bno=null, title=새로 작성하는 글, content=새로 작성하는 내용, writer=newbie, regDate=null, updateDate=null) -->
+
+
+    <!-- insertSelectKey -->
+    <!--<insert id="insertSelectKey">
+            insert into tbl_board(bno, title, content, writer)
+            values (#{bno}, #{title}, #{content},#{writer})
+        <selectKey keyProperty="bno" order="AFTER" resultType="int">
+            select LAST_INSERT_ID()
+        </selectKey>
+    </insert>-->
+    <insert id="insertSelectKey">
+        <selectKey keyProperty="bno" order="BEFORE"
+                   resultType="long">
+            select ifnull(max(bno),0)+1 from tbl_board
+        </selectKey>
+        insert into tbl_board (bno,title,content,writer)
+        values (#{bno},#{title}, #{content}, #{writer})
+    </insert>
+    <!-- INFO  [BoardMapperTests:47] - BoardVO(bno=54, title=새로 작성하는 글 SelectKey 테스트, content=새로 작성하는 내용 SelectKey 테스트, writer=newbie, regDate=null, updateDate=null)-->
+
+
+    <!-- read -->
+    <select id="read" resultType="org.zerock.domain.BoardVO">
+        select * from tbl_board where bno = #{bno}
+    </select>
+    <!-- INFO  [BoardMapperTests:55] - BoardVO(bno=20, title=테스트 제목, content=테스트 내용, writer=user00, regDate=Fri Oct 23 02:53:39 KST 2020, updateDate=Fri Oct 23 02:53:39 KST 2020)-->
+
+
+    <!-- delete -->
+    <delete id="delete">
+        delete from tbl_board where bno = #{bno}
+    </delete>
+    <!-- INFO  [BoardMapperTests:60] - DELETE COUNT : 1-->
+
+
+    <!-- update -->
+    <update id="update">
+        update tbl_board
+        set title = #{title},
+        content = #{content},
+        writer = #{writer},
+        updateDate = now()
+        where bno = #{bno}
+    </update>
+    <!-- INFO  [BoardMapperTests:71] - UPDATE COUNT : 1-->
+
+<!--    <select id="getListWithPaging" resultType="org.zerock.domain.BoardVO">-->
+<!--        <![CDATA[-->
+<!--            select-->
+<!--            bno, title, content, writer, regdate, updatedate-->
+<!--            from tbl_board-->
+<!--            where bno > 0-->
+<!--            order by bno desc, regdate DESC-->
+<!--            LIMIT #{skip},10-->
+<!--        ]]>-->
+
+    <select id="getListWithPaging" resultType="org.zerock.domain.BoardVO">
+       select * from tbl_board
+       order by bno desc
+       limit #{startIndex}, #{amount}
+    </select>
+
+    <select id="getTotal" resultType="int">
+        select count(*) from tbl_board
+    </select>
+
+
+</mapper>

@@ -3,6 +3,8 @@
   <component name="WebContextManager">
     <option name="state">
       <map>
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/STS/error_page.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/STS" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/error_page.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/sample/custom404.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/sample" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/sample/error_page.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/sample" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/sample/ex04.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/sample" />
