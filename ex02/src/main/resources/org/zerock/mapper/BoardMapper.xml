@@ -5,11 +5,11 @@
 <mapper namespace="org.zerock.mapper.BoardMapper">
 
     <!--getList -->
-    <select id="getList" resultType="org.zerock.domain.BoardVO">
-        <![CDATA[
-            select * from tbl_board where bno > 0
-        ]]>
-    </select>
+<!--    <select id="getList" resultType="org.zerock.domain.BoardVO">-->
+<!--        <![CDATA[-->
+<!--            select * from tbl_board where bno > 0-->
+<!--        ]]>-->
+<!--    </select>-->
 
 
     <!-- insert -->
@@ -63,5 +63,26 @@
         where bno = #{bno}
     </update>
     <!-- INFO  [BoardMapperTests:71] - UPDATE COUNT : 1-->
+
+<!--    <select id="getListWithPaging" resultType="org.zerock.domain.BoardVO">-->
+<!--        <![CDATA[-->
+<!--            select-->
+<!--            bno, title, content, writer, regdate, updatedate-->
+<!--            from tbl_board-->
+<!--            where bno > 0-->
+<!--            order by bno desc, regdate DESC-->
+<!--            LIMIT #{skip},10-->
+<!--        ]]>-->
+
+    <select id="getListWithPaging" resultType="org.zerock.domain.BoardVO">
+       select * from tbl_board
+       order by bno desc
+       limit #{startIndex}, #{amount}
+    </select>
+
+    <select id="getTotal" resultType="int">
+        select count(*) from tbl_board
+    </select>
+
 
 </mapper>

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -45,8 +46,9 @@ public class BoardServiceTests {
 
     //여러개의 게시글 조회
     @Test
-    public void testGetList(){
-        service.getList().forEach(board -> log.info(board));
+    public void testGetList() {
+        // service.getList().forEach(board -> log.info(board));
+        service.getList(new Criteria(2, 10, 0)).forEach(board -> log.info(board));
     }
 
 

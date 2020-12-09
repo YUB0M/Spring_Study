@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
+
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { org.zerock.config.RootConfig.class })
@@ -69,6 +72,25 @@ public class BoardMapperTests {
 
         int count = mapper.update(board);
         log.info("UPDATE COUNT : " + count);
+    }
+
+    @Test
+    public void testPaging() {
+
+        Criteria cri = new Criteria();
+        // 10개씩 3페이지
+        cri.setPageNum(1);
+        cri.setAmount(10);
+
+        List<BoardVO> list = mapper.getListWithPaging(cri);
+
+        list.forEach(board -> log.info(board.getBno()));
+
+    }
+
+    @Test
+    public void paging(){
+        mapper.getList(new Criteria(2, 20,0)).forEach(board -> log.info(board));
     }
 
 }
